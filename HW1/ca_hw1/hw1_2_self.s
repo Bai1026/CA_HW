@@ -1,37 +1,24 @@
-
 .data
-nums:   .word 4, 5, 1, 8, 3, 6, 9 ,2, 15, 20, 9    # input sequence
-n:      .word 11                        # sequence length
-dp:     .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   # dp array
-
-
+.data
+.data
+nums:   .word 3, 1, 2, 4, 5, 6, 8, 7, 9, 11, 10, 13, 12, 14, 15, 17, 16, 18, 19, 20, 22, 21, 23, 24, 26, 25, 27, 28, 29, 30, 31, 32, 33, 35, 34, 36, 37, 38, 39, 40    # input sequence
+n:      .word 40                    # sequence length
+dp:     .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   # dp a  rray
 .text
 .globl main
 
-# This is 1132 CA Homework 1 Problem 2
-# Implement Longest Increasing Subsequence Algorithm
-# Input: 
-#       sequence length (n) store in a0
-#       address of sequence store in a1
-#       address of dp array with length n store in a2 (we can decide to use or not)        
-# Output: Length of Longest Increasing Subsequenc in a0(x10)
-
-# DO NOT MODIFY "main" FUNCTION !!!
-
 main:
-
     lw a0, n          # a0 = n
-    la a1, nums       # a1 = &nums[0]
-    la a2, dp         # a2 = &dp[0] 
+    la a1, nums       # a1 = address of nums[0]
+    la a2, dp         # a2 = address of dp[0]
       
-    jal LIS         # Jump to LIS algorithm
+    jal LIS           # jump to LIS algorithm
     
-    # You should use ret or jalr x1 to jump back after algorithm complete
-    # Exit program
-    # System id for exit is 10 in Ripes, 93 in GEM5 
-    li a7, 10
+    li a7, 1         # syscall 1: print integer
+    ecall            # output a0
+    
+    li a7, 10        # syscall 10: exit
     ecall
-
 
 LIS:
     # 初始化 dp 陣列為 1

@@ -1,33 +1,31 @@
 
+.data
+input: .word 7
+
+.text
+.global main
 
 # This is 1132 CA Homework 1
 # Implement fact(x) = 4*F(floor(n-1)/2) + 8n + 3 , where F(0)=4
 # Input: n in a0(x10)
 # Output: fact(n) in a0(x10)
 # DO NOT MOTIFY "main" function
-.data
-input: .word 250   # 設定輸入 n = 7，可更改為 10 測試
-
-.text
-.global main
 
 main:        
-    # 讀取輸入值到 a0
-    lw a0, input
-    
-    # 呼叫 fact 函式
-    jal fact       
+	# Load input into a0
+	lw a0, input
+	
+	# Jump to fact   
+	jal fact       
 
-    # 顯示結果 (print integer)
-    li a7, 1        # syscall 1: print integer
-    ecall           # 執行輸出 a0, ecall is syscall -> like output number or string, read input, end seript, memory allocation
-    
-    # 結束程式 (Ripes: 10, GEM5: 93)
+    # You should use ret or jalr x1 to jump back here after function complete
+	# Exit program
+    # System id for exit is 10 in Ripes, 93 in GEM5 !
     li a7, 10
     ecall
 
 fact:
-    # Base case: 如果 n == 0，返回 4
+        # Base case: 如果 n == 0，返回 4
     li t0, 0        # t0 = 0
     li t1, 4        # t1 = 4
     beq a0, t0, return_base_case  # 如果 a0 == 0，跳到 return_base_case
